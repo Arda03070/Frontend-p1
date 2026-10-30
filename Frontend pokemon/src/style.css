@@ -1,0 +1,440 @@
+/*
+  CSS om te onthouden:
+  - :root { --kleur: ... }  → variabelen, hergebruik overal met var(--kleur)
+  - * { box-sizing: border-box } → padding telt mee in de breedte (voorkomt overflow)
+  - display: flex           → naast elkaar / uitlijnen
+  - display: grid           → rijen en kolommen (onze kaarten)
+  - @media (max-width: ...) → andere layout op kleine schermen
+  - class="is-active"       → JS zet deze class, CSS kleurt de actieve link
+*/
+
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #d12b1f;
+  --accent-dark: #9f1f16;
+  --shadow: 0 8px 24px rgba(17, 24, 39, 0.08);
+  --radius: 16px;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--bg);
+}
+
+#app {
+  max-width: 980px;
+  margin: 0 auto;
+  min-height: 100svh;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+a {
+  color: inherit;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.topbar nav a {
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.topbar nav a.is-active,
+.topbar nav a:hover {
+  color: var(--text);
+  background: #f3f4f6;
+}
+
+.page {
+  padding: 32px 28px 48px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+h2 {
+  margin: 24px 0 10px;
+  font-size: 18px;
+}
+
+.lede,
+.muted {
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+
+.hero-panel {
+  text-align: center;
+  padding: 12px 0 28px;
+}
+
+.hero-art {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  min-height: 180px;
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #f8fafc, #eef2ff);
+}
+
+.hero-art img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+.hero-art img:first-child,
+.hero-art img:last-child {
+  width: 110px;
+  height: 110px;
+  opacity: 0.85;
+}
+
+/* 1fr 1fr = twee even brede kolommen */
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.quick-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  text-decoration: none;
+  background: #fff;
+}
+
+.quick-card:hover {
+  border-color: #d1d5db;
+  box-shadow: var(--shadow);
+}
+
+.quick-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f3f4f6;
+  font-size: 16px;
+}
+
+.pokeball {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(#e3350d 50%, #fff 50%);
+  border: 2px solid #111;
+  position: relative;
+}
+
+.pokeball::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #111;
+}
+
+.chevron {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 22px;
+}
+
+.toolbar {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0 24px;
+}
+
+.search input,
+.filters select,
+.filters button,
+.btn {
+  font: inherit;
+}
+
+.search input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filters button,
+.filters select,
+.btn {
+  border: 1px solid var(--line);
+  background: #e5e7eb;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.filters button.is-active,
+.btn:hover,
+.filters button:hover {
+  background: #d1d5db;
+}
+
+.btn--ghost {
+  background: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.poke-card,
+.slot {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+  background: #fff;
+}
+
+.poke-card__art,
+.detail__art {
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+  border: 1px dashed #d1d5db;
+  border-radius: 12px;
+  background: #fafafa;
+  margin-bottom: 12px;
+}
+
+.poke-card img,
+.detail__art img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.poke-card h3 {
+  margin: 8px 0 4px;
+}
+
+.poke-card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.slot {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.detail__art {
+  min-height: 280px;
+}
+
+.detail__art img {
+  width: 240px;
+  height: 240px;
+}
+
+.detail__heading {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  justify-self: start;
+  background: #e5e7eb;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.stats {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.stats div {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding: 6px 0;
+}
+
+.stats dt {
+  color: var(--muted);
+}
+
+.stats dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 16px;
+}
+
+.back {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.hint {
+  color: var(--accent-dark);
+}
+
+.create-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 24px;
+}
+
+.create-bar input,
+.team-add select {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  min-width: 220px;
+}
+
+.create-bar label,
+.team-add {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 8px 0 16px;
+}
+
+.team-list {
+  display: grid;
+  gap: 12px;
+}
+
+.team-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.team-card h3 {
+  margin: 0 0 4px;
+}
+
+.team-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.state {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Visueel verborgen, wél voor screenreaders (toegankelijkheid). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (max-width: 800px) {
+  .topbar,
+  .page {
+    padding-inline: 16px;
+  }
+
+  .quick-grid,
+  .grid,
+  .detail {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-art img {
+    width: 90px;
+    height: 90px;
+  }
+}
